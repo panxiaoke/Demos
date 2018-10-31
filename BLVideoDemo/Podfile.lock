@@ -1,0 +1,34 @@
+PODS:
+  - R.swift (5.0.0.alpha.2):
+    - R.swift.Library (~> 5.0.0.alpha.2)
+  - R.swift.Library (5.0.0.alpha.2)
+  - SDWebImage (5.0.0-beta3):
+    - SDWebImage/Core (= 5.0.0-beta3)
+  - SDWebImage/Core (5.0.0-beta3)
+  - SnapKit (4.0.1)
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - R.swift (~> 5.0.0.alpha.2)
+  - SDWebImage (~> 5.0.0-beta3)
+  - SnapKit (~> 4.0.1)
+  - SVProgressHUD
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - R.swift
+    - R.swift.Library
+    - SDWebImage
+    - SnapKit
+    - SVProgressHUD
+
+SPEC CHECKSUMS:
+  R.swift: 31fa1bd537fa81307815cc622122f33331f32174
+  R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
+  SDWebImage: e52654ceef9fdc19f4c612d64a5b6d3f05dd81a4
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: 7c721c3593d5e4a605242b46a705c4d577cb8e02
+
+COCOAPODS: 1.5.3
