@@ -361,7 +361,7 @@
 				TargetAttributes = {
 					E493124B1F233F3800EBEE6A = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = L4FK2NAFJB;
+						DevelopmentTeam = LDYPW7D6N4;
 						ProvisioningStyle = Automatic;
 					};
 					E49312641F233F3800EBEE6A = {
@@ -602,11 +602,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L4FK2NAFJB;
+				DEVELOPMENT_TEAM = LDYPW7D6N4;
 				INFOPLIST_FILE = LHGamera/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LH.Gamera;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qinrongjun.demo.camera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -615,11 +615,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = L4FK2NAFJB;
+				DEVELOPMENT_TEAM = LDYPW7D6N4;
 				INFOPLIST_FILE = LHGamera/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LH.Gamera;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qinrongjun.demo.camera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
