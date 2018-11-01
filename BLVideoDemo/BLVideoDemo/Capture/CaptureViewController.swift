@@ -76,7 +76,7 @@ fileprivate enum OutputFileType: Int {
     
     lazy var previewContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         view.frame = self.view.bounds;
         return view
     }()
@@ -103,7 +103,7 @@ fileprivate enum OutputFileType: Int {
     fileprivate lazy var changeCameraBtn: UIButton = {
         let btn = UIButton(type: .custom)
         let btnY: CGFloat = UIDevice.iPhoneX() ? 34 : 20
-        btn.frame = CGRect(x: self.view.frame.width - 64, y: 20, width: 64, height: 64)
+        btn.frame = CGRect(x: self.view.frame.width - 64, y: btnY, width: 64, height: 64)
         btn.setImage(R.image.camera_change_nor(), for: .normal)
         btn.setImage(R.image.camera_change_lighted(), for: .highlighted)
         btn.addTarget(self, action: Selector.handleChangeCameraSEL, for: .touchUpInside)
@@ -337,22 +337,17 @@ extension CaptureViewController {
                 if deviceAngle > Double.pi {
                     deviceAngle -= 2 * Double.pi
                 }
-                if z < -0.6 || z > 0.6 {
+                
+                if deviceAngle > -(Double.pi * 0.25) && deviceAngle < (Double.pi * 0.25) {
                     self?.deviceOrientation = .portrait
-                }  else {
-                    if deviceAngle > -(Double.pi * 0.25) && deviceAngle < (Double.pi * 0.25) {
-                        self?.deviceOrientation = .portrait
-                    } else if deviceAngle < -(Double.pi * 0.25) && deviceAngle > -(Double.pi * 0.75) {
-                        self?.deviceOrientation = .landscapeLeft
-                    } else if deviceAngle > Double.pi * 0.25 && deviceAngle < Double.pi * 0.75 {
-                        self?.deviceOrientation = .landscapeRight
-                    } else  {
-                        self?.deviceOrientation = .portraitUpsideDown
-                    }
+                } else if deviceAngle < -(Double.pi * 0.25) && deviceAngle > -(Double.pi * 0.75) {
+                    self?.deviceOrientation = .landscapeLeft
+                } else if deviceAngle > Double.pi * 0.25 && deviceAngle < Double.pi * 0.75 {
+                    self?.deviceOrientation = .landscapeRight
+                } else  {
+                    self?.deviceOrientation = .portraitUpsideDown
                 }
             }
-           
-            
         }
         
     }
@@ -364,15 +359,21 @@ extension CaptureViewController {
     func setAutoFocus() {
         self.changeCuptureConfigurationSafty { (captureDevice) in
             // 聚焦模式
-            if captureDevice.isFocusModeSupported(.autoFocus) {
+            if captureDevice.isFocusModeSupported(.continuousAutoFocus) {
+                captureDevice.focusMode = .continuousAutoFocus
+            } else if captureDevice.isFocusModeSupported(.autoFocus) {
                 captureDevice.focusMode = .autoFocus
             }
             /// 曝光模式
-            if captureDevice.isExposureModeSupported(.autoExpose) {
+            if captureDevice.isExposureModeSupported(.continuousAutoExposure) {
+                captureDevice.exposureMode = .continuousAutoExposure
+            } else if captureDevice.isExposureModeSupported(.autoExpose) {
                 captureDevice.exposureMode = .autoExpose
             }
             // 自动白平衡
-            if captureDevice.isWhiteBalanceModeSupported(.autoWhiteBalance) {
+            if captureDevice.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
+                captureDevice.whiteBalanceMode = .continuousAutoWhiteBalance
+            } else if captureDevice.isWhiteBalanceModeSupported(.autoWhiteBalance) {
                 captureDevice.whiteBalanceMode = .autoWhiteBalance
             }
         }
@@ -538,7 +539,7 @@ extension CaptureViewController {
         if let outputConnection = self.movieOutput.connection(with: .video) {
             previewLayer.connection?.videoOrientation = outputConnection.videoOrientation
         }
-        previewLayer.videoGravity = .resizeAspectFill
+//        previewLayer.videoGravity = .resizeAspectFill
         previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
         if  let connection = previewLayer.connection, !connection.isEnabled {
             connection.isEnabled = true
