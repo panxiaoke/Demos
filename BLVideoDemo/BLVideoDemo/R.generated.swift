@@ -38,10 +38,8 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 11 images.
+  /// This `R.image` struct is generated, and contains static references to 10 images.
   struct image {
-    /// Image `LaunchImage`.
-    static let launchImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "LaunchImage")
     /// Image `camera_change_lighted`.
     static let camera_change_lighted = Rswift.ImageResource(bundle: R.hostingBundle, name: "camera_change_lighted")
     /// Image `camera_change_nor`.
@@ -62,11 +60,6 @@ struct R: Rswift.Validatable {
     static let chat_player_pause = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat_player_pause")
     /// Image `chat_player_play`.
     static let chat_player_play = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat_player_play")
-    
-    /// `UIImage(named: "LaunchImage", bundle: ..., traitCollection: ...)`
-    static func launchImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.launchImage, compatibleWith: traitCollection)
-    }
     
     /// `UIImage(named: "camera_change_lighted", bundle: ..., traitCollection: ...)`
     static func camera_change_lighted(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -161,8 +154,8 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
-      try main.validate()
       try launchScreen.validate()
+      try main.validate()
     }
     
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

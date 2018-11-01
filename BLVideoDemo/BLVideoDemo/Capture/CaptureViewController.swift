@@ -69,7 +69,7 @@ fileprivate enum OutputFileType: Int {
     
     fileprivate lazy var motionManager: CMMotionManager = {
         let manager = CMMotionManager()
-        manager.accelerometerUpdateInterval = 0.25
+        manager.accelerometerUpdateInterval = 0.45
         return manager
     }()
     
@@ -93,6 +93,8 @@ fileprivate enum OutputFileType: Int {
     
     fileprivate lazy var photoImageView: UIImageView = {
         let imageView = UIImageView(frame: self.view.bounds)
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
         return imageView
     }()
@@ -598,8 +600,6 @@ extension CaptureViewController {
             } else {
                 if let strongSelf = self,  nil != buffer {
                     let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
-                    strongSelf.photoData = data
-                    
                     let originImage = UIImage(data: data!)
                     let size = CGSize(width: strongSelf.captureVideoPreviewLayer.bounds.size.width * 2.0, height: strongSelf.captureVideoPreviewLayer.bounds.size.height * 2.0)
                     let scaleImage = originImage?.resizedImage(with: .scaleAspectFill, bounds: size, interpolationQuality: .high)
@@ -615,11 +615,15 @@ extension CaptureViewController {
                     } else {
                         croppedImage = scaleImage?.croppedImage(cropFrame)
                     }
+                    croppedImage = croppedImage?.change(with: strongSelf.deviceOrientation)
                     strongSelf.photoImageView.image = croppedImage
                     strongSelf.photoImageView.isHidden = false
                     strongSelf.outputFileType = .image
                     strongSelf.toolBar.finishCaptureProgress()
                     strongSelf.changeCameraBtn.isHidden = true
+                    if let image = croppedImage {
+                        strongSelf.photoData = image.jpegData(compressionQuality: 1.0)
+                    }
                 }
             }
         }

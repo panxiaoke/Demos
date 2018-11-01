@@ -19,7 +19,6 @@
 		FF1694CC21898EBC007AE613 /* CaptureFocusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C521898EBC007AE613 /* CaptureFocusIndicator.swift */; };
 		FF1694CF218994BE007AE613 /* ZFLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1694CD218994BE007AE613 /* ZFLoadingView.m */; };
 		FF1694D1218994D2007AE613 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694D0218994D2007AE613 /* UIDevice.swift */; };
-		FF1694DB218997E6007AE613 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1694DA218997E6007AE613 /* Images.xcassets */; };
 		FF1694DD21899846007AE613 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694DC21899846007AE613 /* R.generated.swift */; };
 		FF17B54C2171BF0D00784A56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17B54B2171BF0D00784A56 /* AppDelegate.swift */; };
 		FF17B54E2171BF0D00784A56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17B54D2171BF0D00784A56 /* ViewController.swift */; };
@@ -67,7 +66,6 @@
 		FF1694CD218994BE007AE613 /* ZFLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFLoadingView.m; sourceTree = "<group>"; };
 		FF1694CE218994BE007AE613 /* ZFLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFLoadingView.h; sourceTree = "<group>"; };
 		FF1694D0218994D2007AE613 /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
-		FF1694DA218997E6007AE613 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FF1694DC21899846007AE613 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		FF17B5482171BF0D00784A56 /* BLVideoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLVideoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF17B54B2171BF0D00784A56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				FF17B5572171BF0E00784A56 /* Info.plist */,
 				FF17E9F221782A3300BD831B /* kongfu.mp4 */,
 				FF17E9F52178A8E000BD831B /* you.mp4 */,
-				FF1694DA218997E6007AE613 /* Images.xcassets */,
 			);
 			path = BLVideoDemo;
 			sourceTree = "<group>";
@@ -223,8 +220,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF17B5702171BF0F00784A56 /* Build configuration list for PBXNativeTarget "BLVideoDemo" */;
 			buildPhases = (
-				FF1694D62189963E007AE613 /* ShellScript */,
 				F3C1F3386C8C5D547C204BAF /* [CP] Check Pods Manifest.lock */,
+				FF1694D62189963E007AE613 /* ShellScript */,
 				FF17B5442171BF0D00784A56 /* Sources */,
 				FF17B5452171BF0D00784A56 /* Frameworks */,
 				FF17B5462171BF0D00784A56 /* Resources */,
@@ -327,7 +324,6 @@
 				FF17B5562171BF0E00784A56 /* LaunchScreen.storyboard in Resources */,
 				FF17E9F321782A3300BD831B /* kongfu.mp4 in Resources */,
 				FF17E9F62178A8E000BD831B /* you.mp4 in Resources */,
-				FF1694DB218997E6007AE613 /* Images.xcassets in Resources */,
 				FF17B5532171BF0E00784A56 /* Assets.xcassets in Resources */,
 				FF17B5512171BF0D00784A56 /* Main.storyboard in Resources */,
 			);
@@ -605,7 +601,6 @@
 			baseConfigurationReference = B1AF6D837EF9A446D09F4DAB /* Pods-BLVideoDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDYPW7D6N4;
@@ -629,7 +624,6 @@
 			baseConfigurationReference = 5BE34097F9583BC043C15DEE /* Pods-BLVideoDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDYPW7D6N4;
