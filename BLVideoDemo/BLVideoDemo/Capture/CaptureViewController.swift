@@ -47,7 +47,7 @@ fileprivate enum OutputFileType: Int {
     
     fileprivate var videoURL: URL?
     
-    let maxFactorScale: CGFloat = 3.0
+    let maxFactorScale: CGFloat = 10.0
     var lastFactorScale: CGFloat = 1.0
     var effectiveFactorScale: CGFloat = 1.0
     
@@ -460,8 +460,8 @@ extension CaptureViewController {
     
     func changeCuptureConfigurationSafty(handler: @escaping(AVCaptureDevice)-> ()) {
         let captureDevice = self.videoInput.device
-        try! captureDevice.lockForConfiguration()
         self.captureSession.beginConfiguration()
+        try! captureDevice.lockForConfiguration()
         handler(captureDevice)
         captureDevice.unlockForConfiguration()
         self.captureSession.commitConfiguration()
@@ -499,6 +499,7 @@ extension CaptureViewController {
     /// 配置视屏输出
     func configMovieOutput() {
         let movieOutput = AVCaptureMovieFileOutput()
+        movieOutput.movieFragmentInterval = .invalid
         if self.captureSession.canAddOutput(movieOutput) {
             self.captureSession.addOutput(movieOutput)
             if let captureConnection = movieOutput.connection(with: .video) {
@@ -544,12 +545,15 @@ extension CaptureViewController {
     // 相机内容实时预览图层
     func setupVideoPreviewLayer() {
         let previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-        previewLayer.frame = self.view.bounds
+        previewLayer.bounds = self.view.bounds
         if let outputConnection = self.movieOutput.connection(with: .video) {
             previewLayer.connection?.videoOrientation = outputConnection.videoOrientation
         }
         previewLayer.videoGravity = .resizeAspectFill
-        self.previewContainerView.layer.masksToBounds = true
+        previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        if  let connection = previewLayer.connection, !connection.isEnabled {
+            connection.isEnabled = true
+        }
         self.previewContainerView.layer.addSublayer(previewLayer)
         
         self.captureVideoPreviewLayer =  previewLayer
@@ -821,34 +825,29 @@ extension CaptureViewController {
     
     /// 切换焦距
     @objc func handlePinch(sender: UIPinchGestureRecognizer) {
-        
-        self.changeCuptureConfigurationSafty { (captureDevice) in
-            var canChange = true
-            for i in 0 ..< sender.numberOfTouches {
-                let location = sender.location(ofTouch: i, in: sender.view)
-                let covertedLocation = self.captureVideoPreviewLayer.convert(location, from: self.previewContainerView.layer)
-                if !self.captureVideoPreviewLayer.contains(covertedLocation) {
-                    canChange = false
-                    break
-                }
-            }
-            
-            if canChange {
-                self.effectiveFactorScale = self.lastFactorScale * sender.scale;
-                self.effectiveFactorScale = max(self.effectiveFactorScale, 1.0)
-                let validScale = self.imageCaptureDevice?.activeFormat.videoMaxZoomFactor ?? 1.0
-                if self.effectiveFactorScale > validScale {
-                    self.effectiveFactorScale = validScale
-                }
-                self.effectiveFactorScale = min(self.effectiveFactorScale, self.maxFactorScale)
-                
-                CATransaction.begin()
-                CATransaction.setAnimationDuration(0.025)
-                let transForm = CGAffineTransform(scaleX: self.effectiveFactorScale, y: self.effectiveFactorScale)
-                self.captureVideoPreviewLayer.setAffineTransform(transForm)
-                CATransaction.commit()
+        var allTouchesAreOnThePreviewLayer = true
+        for i in 0 ..< sender.numberOfTouches {
+            let location = sender.location(ofTouch: i, in: sender.view)
+            let covertedLocation = self.captureVideoPreviewLayer.convert(location, from: self.previewContainerView.layer)
+            if !self.captureVideoPreviewLayer.contains(covertedLocation) {
+                allTouchesAreOnThePreviewLayer = false
+                break
             }
         }
+        
+        if allTouchesAreOnThePreviewLayer {
+            self.effectiveFactorScale = self.lastFactorScale * sender.scale;
+            self.effectiveFactorScale = max(self.effectiveFactorScale, 1.0)
+            let validScale = self.imageCaptureDevice?.activeFormat.videoMaxZoomFactor ?? 1.0
+            if self.effectiveFactorScale > validScale {
+                self.effectiveFactorScale = validScale
+            }
+            self.effectiveFactorScale = min(self.effectiveFactorScale, self.maxFactorScale)
+            try? self.imageCaptureDevice?.lockForConfiguration()
+            self.imageCaptureDevice?.ramp(toVideoZoomFactor: self.effectiveFactorScale, withRate: 100)
+            self.imageCaptureDevice?.unlockForConfiguration()
+        }
+        
     }
 
     
