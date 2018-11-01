@@ -47,8 +47,9 @@ fileprivate enum OutputFileType: Int {
     
     fileprivate var videoURL: URL?
     
-    var lastScale: CGFloat = 1.0
-    var effectiveScale: CGFloat = 1.0
+    let maxFactorScale: CGFloat = 3.0
+    var lastFactorScale: CGFloat = 1.0
+    var effectiveFactorScale: CGFloat = 1.0
     
     lazy var playerView: PlayerView = {
         let view = PlayerView()
@@ -593,7 +594,7 @@ extension CaptureViewController {
         guard (connection != nil) else {
             return
         }
-        connection!.videoScaleAndCropFactor  = effectiveScale
+        connection!.videoScaleAndCropFactor  = effectiveFactorScale
         self.photoOutput.captureStillImageAsynchronously(from: connection!) { [weak self] (buffer, error) in
             if nil != error {
                print(error.debugDescription)
@@ -833,17 +834,17 @@ extension CaptureViewController {
             }
             
             if canChange {
-                self.effectiveScale = self.lastScale * sender.scale;
-                self.effectiveScale = max(self.effectiveScale, 1.0)
-        
+                self.effectiveFactorScale = self.lastFactorScale * sender.scale;
+                self.effectiveFactorScale = max(self.effectiveFactorScale, 1.0)
                 let validScale = self.imageCaptureDevice?.activeFormat.videoMaxZoomFactor ?? 1.0
-                if self.effectiveScale > validScale {
-                    self.effectiveScale = validScale
+                if self.effectiveFactorScale > validScale {
+                    self.effectiveFactorScale = validScale
                 }
+                self.effectiveFactorScale = min(self.effectiveFactorScale, self.maxFactorScale)
                 
                 CATransaction.begin()
                 CATransaction.setAnimationDuration(0.025)
-                let transForm = CGAffineTransform(scaleX: self.effectiveScale, y: self.effectiveScale)
+                let transForm = CGAffineTransform(scaleX: self.effectiveFactorScale, y: self.effectiveFactorScale)
                 self.captureVideoPreviewLayer.setAffineTransform(transForm)
                 CATransaction.commit()
             }
@@ -932,7 +933,7 @@ extension CaptureViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if (gestureRecognizer is UIPinchGestureRecognizer) {
-            lastScale = effectiveScale
+            lastFactorScale = effectiveFactorScale
         }
         return true
     }
