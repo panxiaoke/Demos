@@ -181,7 +181,9 @@ extension CaptureViewController {
     func checkAuthorization() {
         let videoStatus = AVCaptureDevice.authorizationStatus(for: .video)
         let audioStatus = AVCaptureDevice.authorizationStatus(for: .audio)
-        // 第一次进行权限获取
+        let libaryStatus = PHPhotoLibrary.authorizationStatus()
+        
+        // 相机权限
         if videoStatus == .notDetermined {
             AVCaptureDevice.requestAccess(for: .video) { (authorized) in
                 if authorized {
@@ -192,6 +194,8 @@ extension CaptureViewController {
                 
             }
         }
+        
+        // 录音权限
         if audioStatus == .notDetermined {
             AVAudioSession.sharedInstance().requestRecordPermission { (authorized) in
                 if authorized {
@@ -199,6 +203,13 @@ extension CaptureViewController {
                         self.setupCaptureSetting()
                     }
                 }
+                
+            }
+        }
+        
+        // 相机访问权限
+        if libaryStatus == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { (authorized) in
                 
             }
         }
@@ -217,6 +228,10 @@ extension CaptureViewController {
     
     func canCapture() -> Bool {
         return self.canAccessAudioDevice() && self.canAccessVideoDevice()
+    }
+    
+    func canAccessPhotoLibrary() -> Bool {
+        return PHPhotoLibrary.authorizationStatus() == .authorized
     }
     
     func showAccessHintView() {
@@ -365,32 +380,6 @@ extension CaptureViewController {
         self.focusIndicator.move(to: center)
     }
     
-    /// 保存视频到相册
-    func saveVideoToLibrary(videoURL: URL) {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL)
-        }) { (saved, error) in
-            if nil != error {
-                print(error.debugDescription)
-            } else {
-                print("saved=", saved)
-            }
-        }
-    }
-    
-    /// 保存视频到
-    func saveImageToLibrary() {
-        if let image = self.photoImageView.image {
-            PHPhotoLibrary.shared().performChanges({
-                
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-                
-                
-            }) { (saved, error) in
-                print("saved=", saved)
-            }
-        }
-    }
     // MARK: -
     /// 添加手势
     func addGestureRecognizers() {
@@ -756,7 +745,7 @@ extension CaptureViewController {
                     }
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: {
-                              self.delegate?.captureViewController(vc: self, didFinishRecordVideo: targetURL, error: nil)
+                            self.delegate?.captureViewController(vc: self, didFinishRecordVideo: targetURL, error: nil)
                         })
                     }
                     self.saveVideoToLibrary(videoURL: targetURL)
@@ -765,8 +754,40 @@ extension CaptureViewController {
         }
     }
     
+    /// 保存视频到相册
+    func saveVideoToLibrary(videoURL: URL) {
+        let canAccess = self.canAccessPhotoLibrary()
+        if !canAccess {
+            return
+        }
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL)
+        }) { (saved, error) in
+            if nil != error {
+                print(error.debugDescription)
+            } else {
+                print("saved=", saved)
+            }
+        }
+    }
     
-    
+    /// 保存视频到
+    func saveImageToLibrary() {
+        let canAccess = self.canAccessPhotoLibrary()
+        if !canAccess {
+            return
+        }
+        if let image = self.photoImageView.image {
+            PHPhotoLibrary.shared().performChanges({
+                
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+                
+                
+            }) { (saved, error) in
+                print("saved=", saved)
+            }
+        }
+    }
 }
 
 // MARK: - 点击事件/手势处理
