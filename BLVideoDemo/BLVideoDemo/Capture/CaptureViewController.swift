@@ -338,7 +338,7 @@ extension CaptureViewController {
                     deviceAngle -= 2 * Double.pi
                 }
                 if z < -0.6 || z > 0.6 {
-                    self?.deviceOrientation = .unknown
+                    self?.deviceOrientation = .portrait
                 }  else {
                     if deviceAngle > -(Double.pi * 0.25) && deviceAngle < (Double.pi * 0.25) {
                         self?.deviceOrientation = .portrait
@@ -364,16 +364,16 @@ extension CaptureViewController {
     func setAutoFocus() {
         self.changeCuptureConfigurationSafty { (captureDevice) in
             // 聚焦模式
-            if captureDevice.isFocusModeSupported(.continuousAutoFocus) {
-                captureDevice.focusMode = .continuousAutoFocus
-            } else if captureDevice.isFocusModeSupported(.autoFocus) {
+            if captureDevice.isFocusModeSupported(.autoFocus) {
                 captureDevice.focusMode = .autoFocus
             }
             /// 曝光模式
-            if captureDevice.isExposureModeSupported(.continuousAutoExposure) {
-                captureDevice.exposureMode = .continuousAutoExposure
-            } else if captureDevice.isExposureModeSupported(.autoExpose) {
+            if captureDevice.isExposureModeSupported(.autoExpose) {
                 captureDevice.exposureMode = .autoExpose
+            }
+            // 自动白平衡
+            if captureDevice.isWhiteBalanceModeSupported(.autoWhiteBalance) {
+                captureDevice.whiteBalanceMode = .autoWhiteBalance
             }
         }
         let center = CGPoint(x: self.view.frame.width * 0.5, y: self.view.frame.height * 0.5)
@@ -405,7 +405,7 @@ extension CaptureViewController {
     /// 操作提示视图
     func showOperationHint() {
         let hintLabel = UILabel()
-        hintLabel.text = "轻触拍照，长按消失"
+        hintLabel.text = "轻触拍照，长按摄像"
         hintLabel.font = UIFont.systemFont(ofSize: 13)
         hintLabel.textColor = .white
         hintLabel.backgroundColor = UIColor(white: 0, alpha: 0.06)
@@ -575,26 +575,17 @@ extension CaptureViewController {
     
     /// 拍照
     func takePhoto() {
-        var connection: AVCaptureConnection?
-        for item in self.photoOutput.connections {
-            for port in item.inputPorts {
-                if (port.mediaType == .video) {
-                    connection = item
-                    break
-                }
-            }
-        }
-        guard (connection != nil) else {
+        guard let connection = self.photoOutput.connection(with: .video) else {
             return
         }
-        self.photoOutput.captureStillImageAsynchronously(from: connection!) { [weak self] (buffer, error) in
+        self.photoOutput.captureStillImageAsynchronously(from: connection) { [weak self] (buffer, error) in
             if nil != error {
                print(error.debugDescription)
             } else {
                 if let strongSelf = self,  nil != buffer {
                     let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
                     let originImage = UIImage(data: data!)
-                    let size = CGSize(width: strongSelf.captureVideoPreviewLayer.bounds.size.width * 1.0, height: strongSelf.captureVideoPreviewLayer.bounds.size.height * 1.0)
+                    let size = CGSize(width: strongSelf.captureVideoPreviewLayer.bounds.size.width * 2.0, height: strongSelf.captureVideoPreviewLayer.bounds.size.height * 2.0)
                     let scaleImage = originImage?.resizedImage(with: .scaleAspectFill, bounds: size, interpolationQuality: .high)
                     var cropFrame: CGRect = .zero
                     if let existImage = scaleImage {
@@ -686,9 +677,9 @@ extension CaptureViewController {
             playerItem = AVPlayerItem(url: url)
             player = AVPlayer(playerItem: playerItem)
             self.addPlayerObservers()
-            self.playerView.frame = self.view.bounds;
-            self.playerView.player = player;
+            self.playerView.player = player
             self.view.insertSubview(self.playerView, belowSubview: self.toolBar)
+            self.playerView.frame = self.view.bounds
            
             player?.play()
         }
@@ -699,6 +690,7 @@ extension CaptureViewController {
         if self.playerView.superview != nil {
             self.view.sendSubviewToBack(self.playerView)
             self.playerView.removeFromSuperview()
+            self.playerView.frame = .zero
             self.player?.replaceCurrentItem(with: nil)
             self.player = nil
             self.playerItem = nil
@@ -916,14 +908,16 @@ extension CaptureViewController {
         guard let connection = self.movieOutput.connection(with: .video) else {
             return
         }
-        switch captureDevice.position {
-        case .front:
-            connection.isVideoMirrored = true
-        case .back:
-            connection.isVideoMirrored = false
-        default:
-            connection.isVideoMirrored = true
-            return
+        if connection.isVideoMirroringSupported {
+            switch captureDevice.position {
+            case .front:
+                connection.isVideoMirrored = true
+            case .back:
+                connection.isVideoMirrored = false
+            default:
+                connection.isVideoMirrored = true
+                return
+            }
         }
     }
 }
