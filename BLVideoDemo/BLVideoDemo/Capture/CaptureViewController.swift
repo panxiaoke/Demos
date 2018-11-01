@@ -193,6 +193,9 @@ extension CaptureViewController {
             AVCaptureDevice.requestAccess(for: .video) { (authorized) in
                 DispatchQueue.main.async {
                     self.setupCaptureSetting()
+                    if !authorized {
+                        self.dismissCaptureViewController()
+                    }
                 }
             }
         }
@@ -202,6 +205,9 @@ extension CaptureViewController {
             AVAudioSession.sharedInstance().requestRecordPermission { (authorized) in
                 DispatchQueue.main.async {
                     self.setupCaptureSetting()
+                    if !authorized {
+                        self.dismissCaptureViewController()
+                    }
                 }
             }
         }
