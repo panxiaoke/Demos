@@ -134,9 +134,9 @@ fileprivate enum OutputFileType: Int {
         let canCapture = self.canCapture()
         if canCapture {
             self.setAutoFocus()
-            self.showAccessHintView()
             self.showOperationHint()
         }
+        self.showAccessHintView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,9 +157,9 @@ fileprivate enum OutputFileType: Int {
         }
         
         if canAccessVideo && canAccessAudio {
-             self.view.isUserInteractionEnabled = true
+            self.operate(enable: true)
         } else {
-           self.view.isUserInteractionEnabled = false
+            self.operate(enable: false)
         }
     }
 }
@@ -176,7 +176,12 @@ extension CaptureViewController {
         self.view.addSubview(self.focusIndicator)
     }
     
-    
+    func operate(enable: Bool) {
+        self.changeCameraBtn.isEnabled = enable
+        self.toolBar.recordView.isUserInteractionEnabled = enable
+        self.toolBar.giveUpBtn.isUserInteractionEnabled = enable
+        self.toolBar.completeBtn.isUserInteractionEnabled = enable
+    }
     // MARK: - 权限
     func checkAuthorization() {
         let videoStatus = AVCaptureDevice.authorizationStatus(for: .video)
@@ -186,24 +191,18 @@ extension CaptureViewController {
         // 相机权限
         if videoStatus == .notDetermined {
             AVCaptureDevice.requestAccess(for: .video) { (authorized) in
-                if authorized {
-                    DispatchQueue.main.async {
-                        self.setupCaptureSetting()
-                    }
+                DispatchQueue.main.async {
+                    self.setupCaptureSetting()
                 }
-                
             }
         }
         
         // 录音权限
         if audioStatus == .notDetermined {
             AVAudioSession.sharedInstance().requestRecordPermission { (authorized) in
-                if authorized {
-                    DispatchQueue.main.async {
-                        self.setupCaptureSetting()
-                    }
+                DispatchQueue.main.async {
+                    self.setupCaptureSetting()
                 }
-                
             }
         }
         
