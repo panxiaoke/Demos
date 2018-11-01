@@ -1,11 +1,3 @@
-//
-//  UIImage+Resize.m
-// https://github.com/Mars-Programer/LHCamera
-//
-//  Created by 刘欢 on 2017/2/13.
-//  Copyright © 2017年 imxingzhe.com. All rights reserved.
-//
-
 #import "UIImage+Resize.h"
 
 @implementation UIImage (Resize)

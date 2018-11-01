@@ -598,7 +598,6 @@ extension CaptureViewController {
         guard (connection != nil) else {
             return
         }
-        connection!.videoScaleAndCropFactor  = effectiveFactorScale
         self.photoOutput.captureStillImageAsynchronously(from: connection!) { [weak self] (buffer, error) in
             if nil != error {
                print(error.debugDescription)
@@ -606,7 +605,7 @@ extension CaptureViewController {
                 if let strongSelf = self,  nil != buffer {
                     let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer!)
                     let originImage = UIImage(data: data!)
-                    let size = CGSize(width: strongSelf.captureVideoPreviewLayer.bounds.size.width * 2.0, height: strongSelf.captureVideoPreviewLayer.bounds.size.height * 2.0)
+                    let size = CGSize(width: strongSelf.captureVideoPreviewLayer.bounds.size.width * 1.0, height: strongSelf.captureVideoPreviewLayer.bounds.size.height * 1.0)
                     let scaleImage = originImage?.resizedImage(with: .scaleAspectFill, bounds: size, interpolationQuality: .high)
                     var cropFrame: CGRect = .zero
                     if let existImage = scaleImage {
@@ -621,13 +620,15 @@ extension CaptureViewController {
                         croppedImage = scaleImage?.croppedImage(cropFrame)
                     }
                     croppedImage = croppedImage?.change(with: strongSelf.deviceOrientation)
-                    strongSelf.photoImageView.image = croppedImage
-                    strongSelf.photoImageView.isHidden = false
-                    strongSelf.outputFileType = .image
-                    strongSelf.toolBar.finishCaptureProgress()
-                    strongSelf.changeCameraBtn.isHidden = true
-                    if let image = croppedImage {
-                        strongSelf.photoData = image.jpegData(compressionQuality: 1.0)
+                    DispatchQueue.main.async {
+                        strongSelf.photoImageView.image = croppedImage
+                        strongSelf.photoImageView.isHidden = false
+                        strongSelf.outputFileType = .image
+                        strongSelf.toolBar.finishCaptureProgress()
+                        strongSelf.changeCameraBtn.isHidden = true
+                        if let image = croppedImage {
+                            strongSelf.photoData = image.jpegData(compressionQuality: 1.0)
+                        }
                     }
                 }
             }

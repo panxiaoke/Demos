@@ -56,12 +56,17 @@ class CaptureToolBar: UIView {
         return btn
     }()
     
+    lazy var giveUpBtnBackgroundView: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        view.isHidden = true
+        return view
+    }()
+    
     lazy var giveUpBtn: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        btn.backgroundColor = UIColor(white: 1, alpha: 0.2)
         btn.setImage(R.image.capture_result_giveup(), for: .normal)
         btn.addTarget(self, action: Selector.handleGiveUpSEL, for: .touchUpInside)
-        btn.isHidden = true
         return btn
     }()
     
@@ -102,9 +107,13 @@ class CaptureToolBar: UIView {
         self.progressView.frame = CGRect(x: width * 0.5, y: 0, width: 75, height: 75)
         self.progressView.center = CGPoint(x: self.frame.width * 0.5 , y: self.frame.height * 0.5)
         
-        self.giveUpBtn.frame = CGRect(x: width * 0.1, y: 0, width: 75, height: 75)
-        self.giveUpBtn.center = CGPoint(x: self.giveUpBtn.center.x, y: self.frame.height * 0.5)
-        self.giveUpBtn.layer.cornerRadius = self.giveUpBtn.frame.width * 0.5
+        self.giveUpBtnBackgroundView.frame = CGRect(x: width * 0.1, y: 0, width: 75, height: 75)
+        self.giveUpBtnBackgroundView.center = CGPoint(x: self.giveUpBtnBackgroundView.center.x, y: self.frame.height * 0.5)
+        self.giveUpBtnBackgroundView.layer.cornerRadius = self.giveUpBtnBackgroundView.frame.width * 0.5
+        self.giveUpBtnBackgroundView.layer.masksToBounds = true
+        
+        self.giveUpBtn.frame = self.giveUpBtnBackgroundView.bounds
+        self.giveUpBtn.layer.cornerRadius = self.giveUpBtnBackgroundView.bounds.width * 0.5
         self.giveUpBtn.layer.masksToBounds = true
         
         self.completeBtn.frame = CGRect(x: width - width * 0.1 - 75, y: 0, width: 75, height: 75)
@@ -122,7 +131,9 @@ fileprivate extension CaptureToolBar {
         self.addSubview(self.dismissBtn)
         self.addSubview(self.recordView)
         self.insertSubview(self.progressView, belowSubview: self.recordView)
-        self.addSubview(self.giveUpBtn)
+        self.addSubview(self.giveUpBtnBackgroundView)
+        self.giveUpBtnBackgroundView.contentView.addSubview(self.giveUpBtn)
+        
         self.addSubview(self.completeBtn)
     }
     
@@ -205,7 +216,7 @@ fileprivate extension CaptureToolBar {
     
     @objc func handleGiveUp(sender: UIButton) {
         self.completeBtn.isHidden = true
-        self.giveUpBtn.isHidden = true
+        self.giveUpBtnBackgroundView.isHidden = true
         
         self.progressView.progress = 0;
         self.dismissBtn.isHidden = false
@@ -234,13 +245,13 @@ extension CaptureToolBar {
     
     /// 结束录制
     func finishCaptureProgress() {
-        self.giveUpBtn.isHidden = false
+        self.giveUpBtnBackgroundView.isHidden = false
         self.completeBtn.isHidden = false
         
         let giveUpBtnAniamtion = CABasicAnimation(keyPath: "position.x")
         giveUpBtnAniamtion.duration = 0.15
         giveUpBtnAniamtion.fromValue = self.frame.width * 0.5
-        self.giveUpBtn.layer.add(giveUpBtnAniamtion, forKey: "aniForGiveUpBtn")
+        self.giveUpBtnBackgroundView.layer.add(giveUpBtnAniamtion, forKey: "aniForGiveUpBtn")
         
         let completeBtnAnimation = CABasicAnimation(keyPath: "position.x")
         completeBtnAnimation.duration = 0.15

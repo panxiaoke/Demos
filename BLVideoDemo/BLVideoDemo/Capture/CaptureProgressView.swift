@@ -8,17 +8,21 @@
 
 import UIKit
 
-class CaptureProgressView: UIView {
+class CircleProgressView: UIView {
     
     var progress: Double = 0 {
         didSet {
             self.setNeedsDisplay()
         }
     }
-
+    
     init() {
         super.init(frame: .zero)
-        self.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.5)
+        self.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 0.2)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func draw(_ rect: CGRect) {
@@ -35,6 +39,27 @@ class CaptureProgressView: UIView {
         ctx?.strokePath()
         
     }
+}
+
+class CaptureProgressView: UIVisualEffectView {
+    
+    var progress: Double = 0 {
+        didSet {
+            self.circleProgressView.progress = progress
+        }
+    }
+    
+    lazy var circleProgressView: CircleProgressView = {
+        let view = CircleProgressView()
+        return view
+    }()
+
+    init() {
+        super.init(effect: UIBlurEffect(style: .light))
+        self.contentView.addSubview(self.circleProgressView)
+       
+    }
+   
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -43,6 +68,8 @@ class CaptureProgressView: UIView {
         super.layoutSubviews()
         self.layer.cornerRadius = self.bounds.width * 0.5
         self.layer.masksToBounds = true
+        self.contentView.addSubview(self.circleProgressView)
+        self.circleProgressView.frame = self.contentView.bounds;
     }
     
 }
