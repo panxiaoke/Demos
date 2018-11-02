@@ -29,7 +29,7 @@ fileprivate extension Selector {
     static let handleAppDidEnterBackgroundSEL = #selector(PlayerViewController.handleAppDidEnterBackground(notification:))
 }
 
-@objcMembers class PlayerViewController: UIViewController {
+@objcMembers class PlayerViewController: FXViewController {
     
     // 播放器模型，包含了视屏的相关信息
     var playerModel: PlayerModel = PlayerModel()
@@ -150,7 +150,7 @@ fileprivate extension Selector {
     lazy var coverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.frame = self.view.bounds;
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .black
         imageView.center = CGPoint(x: self.view.frame.width * 0.5, y: self.view.frame.height * 0.5)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -183,7 +183,7 @@ fileprivate extension Selector {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor.black
         self.addGestures()
         self.setupPlayer()
         self.setupUI()
@@ -220,7 +220,7 @@ fileprivate extension Selector {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.setStatusBarHidden(true, with: .fade)
-        if playerItem?.status != AVPlayerItem.Status.readyToPlay {
+        if !self.coverImageView.isHidden {
             self.loadingActivity.startAnimating()
         }
     }
@@ -230,26 +230,21 @@ fileprivate extension Selector {
         UIApplication.shared.setStatusBarHidden(false, with: .fade)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        player?.replaceCurrentItem(with: nil)
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "loadedTimeRanges" {
             
         } else if keyPath == "status" {
             if playerItem?.status == AVPlayerItem.Status.readyToPlay {
                 if playerModel.autoPlay {
-                    UIView.animate(withDuration: 0.15, animations: {
-                        self.coverImageView.alpha = 0
-                    }) { (finished) in
-                        self.play()
-                        self.coverImageView.isHidden = true
-                        self.coverImageView.alpha = 1
-                    }
+                    self.play()
                 }
-            } else {
-                print("视频尚未准备完成")
-            }
-        } else if keyPath == "rate" {
-            if self.player?.rate == 1 {
-                self.loadingActivity.stopAnimating()
+            } else if (playerItem?.status == .failed) {
+                print("播放视频失败=", playerItem?.error ?? "1")
             }
         }
     }
@@ -260,7 +255,7 @@ fileprivate extension PlayerViewController {
     
     // UI
     func setupUI() {
-        if ((self.playerModel.coverImageURL) != nil) {
+        if self.playerModel.coverImageURL != nil {
              self.view.addSubview(self.coverImageView)
              self.coverImageView.sd_setImage(with: self.playerModel.coverImageURL, placeholderImage: self.playerModel.coverPlaceolderImage, options: .retryFailed, progress: nil, completed: nil)
         }
@@ -320,13 +315,22 @@ fileprivate extension PlayerViewController {
         // 播放状态与缓冲
         playerItem?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
         playerItem?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-        player?.addObserver(self, forKeyPath: "rate", options: .new, context: nil)
         // 播放进度
-        let interval = CMTime(seconds: 0.5,
+        let interval = CMTime(seconds: 0.1,
                               preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         timeObserverToken = player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: {[weak self] (time) in
             if let strongSelf = self {
                 let current = CMTimeGetSeconds(time)
+                if current > 0 && !strongSelf.coverImageView.isHidden {
+                    UIView.animate(withDuration: 0.05, animations: {
+                        strongSelf.coverImageView.alpha = 0
+                    }, completion: { (finished) in
+                        strongSelf.coverImageView.isHidden = true
+                        strongSelf.coverImageView.alpha = 1
+                    })
+                   
+                    strongSelf.loadingActivity.stopAnimating()
+                }
                 strongSelf.playedDurationLabel.text = strongSelf.formateVideoDuration(duration: Int(current))
                 if let durtion = strongSelf.player?.currentItem?.duration {
                     let total = CMTimeGetSeconds(durtion)
@@ -337,7 +341,6 @@ fileprivate extension PlayerViewController {
                 }
                 strongSelf.progressSlider.value = Float(current)
             }
-            
         })
     }
     
@@ -349,7 +352,6 @@ fileprivate extension PlayerViewController {
             player?.removeTimeObserver(token)
             timeObserverToken = nil
         }
-        player?.removeObserver(self, forKeyPath: "rate")
     }
     
     /// 添加手势
@@ -390,8 +392,6 @@ fileprivate extension PlayerViewController {
             self.replay()
         }
     }
-    
-
 }
 
 // MARK: - Click Event

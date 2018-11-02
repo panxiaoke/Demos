@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		75891DDD218A14EB007F3806 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 75891DDB218A14EA007F3806 /* UIImage+Resize.m */; };
 		BBD480F161CE48C043F47F61 /* Pods_BLVideoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */; };
+		FF1153A3218C46DD008996B6 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A0218C46DD008996B6 /* PlayerViewController.swift */; };
+		FF1153A4218C46DD008996B6 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A1218C46DD008996B6 /* PlayerModel.swift */; };
+		FF1153A5218C46DD008996B6 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A2218C46DD008996B6 /* PlayerView.swift */; };
 		FF163A702175DEC50012AD15 /* SessionDrafPlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */; };
-		FF1694C621898EBC007AE613 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694BE21898EBC007AE613 /* PlayerViewController.swift */; };
-		FF1694C721898EBC007AE613 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694BF21898EBC007AE613 /* PlayerModel.swift */; };
-		FF1694C821898EBC007AE613 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C021898EBC007AE613 /* PlayerView.swift */; };
 		FF1694C921898EBC007AE613 /* CaptureProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C221898EBC007AE613 /* CaptureProgressView.swift */; };
 		FF1694CA21898EBC007AE613 /* CaptureToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C321898EBC007AE613 /* CaptureToolBar.swift */; };
 		FF1694CB21898EBC007AE613 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C421898EBC007AE613 /* CaptureViewController.swift */; };
@@ -54,11 +54,11 @@
 		75891DDC218A14EB007F3806 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		B1AF6D837EF9A446D09F4DAB /* Pods-BLVideoDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLVideoDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BLVideoDemo/Pods-BLVideoDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLVideoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF1153A0218C46DD008996B6 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		FF1153A1218C46DD008996B6 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		FF1153A2218C46DD008996B6 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDrafPlistManager.swift; sourceTree = "<group>"; };
 		FF1648032179870800EEBDD8 /* BLVideoDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLVideoDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		FF1694BE21898EBC007AE613 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		FF1694BF21898EBC007AE613 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
-		FF1694C021898EBC007AE613 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		FF1694C221898EBC007AE613 /* CaptureProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureProgressView.swift; sourceTree = "<group>"; };
 		FF1694C321898EBC007AE613 /* CaptureToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureToolBar.swift; sourceTree = "<group>"; };
 		FF1694C421898EBC007AE613 /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
@@ -127,12 +127,12 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FF1694BD21898EBC007AE613 /* Player */ = {
+		FF11539F218C46DD008996B6 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				FF1694BE21898EBC007AE613 /* PlayerViewController.swift */,
-				FF1694BF21898EBC007AE613 /* PlayerModel.swift */,
-				FF1694C021898EBC007AE613 /* PlayerView.swift */,
+				FF1153A0218C46DD008996B6 /* PlayerViewController.swift */,
+				FF1153A1218C46DD008996B6 /* PlayerModel.swift */,
+				FF1153A2218C46DD008996B6 /* PlayerView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -181,7 +181,7 @@
 				FF1694CE218994BE007AE613 /* ZFLoadingView.h */,
 				FF1694CD218994BE007AE613 /* ZFLoadingView.m */,
 				FF1694C121898EBC007AE613 /* Capture */,
-				FF1694BD21898EBC007AE613 /* Player */,
+				FF11539F218C46DD008996B6 /* Player */,
 				FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */,
 				FF17B54B2171BF0D00784A56 /* AppDelegate.swift */,
 				FF17B54D2171BF0D00784A56 /* ViewController.swift */,
@@ -412,16 +412,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF1694C721898EBC007AE613 /* PlayerModel.swift in Sources */,
 				FF163A702175DEC50012AD15 /* SessionDrafPlistManager.swift in Sources */,
-				FF1694C621898EBC007AE613 /* PlayerViewController.swift in Sources */,
 				FF1694C921898EBC007AE613 /* CaptureProgressView.swift in Sources */,
 				FF1694CB21898EBC007AE613 /* CaptureViewController.swift in Sources */,
-				FF1694C821898EBC007AE613 /* PlayerView.swift in Sources */,
+				FF1153A4218C46DD008996B6 /* PlayerModel.swift in Sources */,
 				FF1694DD21899846007AE613 /* R.generated.swift in Sources */,
 				FF1694CF218994BE007AE613 /* ZFLoadingView.m in Sources */,
+				FF1153A3218C46DD008996B6 /* PlayerViewController.swift in Sources */,
 				FF1694D1218994D2007AE613 /* UIDevice.swift in Sources */,
 				FF17B54E2171BF0D00784A56 /* ViewController.swift in Sources */,
+				FF1153A5218C46DD008996B6 /* PlayerView.swift in Sources */,
 				FF1694CC21898EBC007AE613 /* CaptureFocusIndicator.swift in Sources */,
 				FF1694CA21898EBC007AE613 /* CaptureToolBar.swift in Sources */,
 				FF17B54C2171BF0D00784A56 /* AppDelegate.swift in Sources */,

@@ -65,9 +65,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playVideo(_ sender: Any) {
-       
-//        let url = Bundle.main.url(forResource: "kongfu", withExtension: "mp4")
-      
+        
+        url = Bundle.main.url(forResource: "kongfu", withExtension: "mp4")
+        self.play()
+        
     }
     
     func play() {
