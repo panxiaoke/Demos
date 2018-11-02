@@ -153,10 +153,10 @@ fileprivate enum OutputFileType: Int {
         let canAccessAudio = self.canAccessAudioDevice()
         if canAccessVideo {
             self.configCaptureSession()
-            self.addGestureRecognizers()
         }
         
         if canAccessVideo && canAccessAudio {
+            self.addGestureRecognizers()
             self.operate(enable: true)
         } else {
             self.operate(enable: false)
@@ -449,17 +449,9 @@ extension CaptureViewController {
         self.configPhoto()
         self.setupVideoPreviewLayer()
         self.captureSession.commitConfiguration()
-        self.captureSession.startRunning()
-        
-    }
-    
-    func changeCuptureConfigurationSafty(handler: @escaping(AVCaptureDevice)-> ()) {
-        let captureDevice = self.videoInput.device
-        self.captureSession.beginConfiguration()
-        try! captureDevice.lockForConfiguration()
-        handler(captureDevice)
-        captureDevice.unlockForConfiguration()
-        self.captureSession.commitConfiguration()
+        if !self.captureSession.isRunning {
+            self.captureSession.startRunning()
+        }
     }
     
     /// 配置拍照输出参数
@@ -468,8 +460,8 @@ extension CaptureViewController {
         photoOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
         if self.captureSession.canAddOutput(photoOutput) {
             self.captureSession.addOutput(photoOutput)
+            self.photoOutput = photoOutput
         }
-        self.photoOutput = photoOutput
     }
     
     /// 配置视屏输入/输出相关参数
@@ -480,7 +472,6 @@ extension CaptureViewController {
             self.configVideoInput()
             self.configMovieOutput()
         }
-       
     }
     /// 配置视屏输入
     func configVideoInput()  {
@@ -539,19 +530,32 @@ extension CaptureViewController {
     
     // 相机内容实时预览图层
     func setupVideoPreviewLayer() {
-        let previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-        previewLayer.bounds = self.view.bounds
-        if let outputConnection = self.movieOutput.connection(with: .video) {
-            previewLayer.connection?.videoOrientation = outputConnection.videoOrientation
+        if nil == captureVideoPreviewLayer {
+            let previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+            previewLayer.bounds = self.view.bounds
+            if let outputConnection = self.movieOutput.connection(with: .video) {
+                previewLayer.connection?.videoOrientation = outputConnection.videoOrientation
+            }
+            previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+            if  let connection = previewLayer.connection, !connection.isEnabled {
+                connection.isEnabled = true
+            }
+            self.previewContainerView.layer.addSublayer(previewLayer)
+            
+            self.captureVideoPreviewLayer =  previewLayer
         }
-//        previewLayer.videoGravity = .resizeAspectFill
-        previewLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-        if  let connection = previewLayer.connection, !connection.isEnabled {
-            connection.isEnabled = true
-        }
-        self.previewContainerView.layer.addSublayer(previewLayer)
-        
-        self.captureVideoPreviewLayer =  previewLayer
+    }
+    
+    /// 修改配置
+    ///
+    /// - Parameter handler: 加锁的device
+    func changeCuptureConfigurationSafty(handler: @escaping(AVCaptureDevice)-> ()) {
+        let captureDevice = self.videoInput.device
+        self.captureSession.beginConfiguration()
+        try! captureDevice.lockForConfiguration()
+        handler(captureDevice)
+        captureDevice.unlockForConfiguration()
+        self.captureSession.commitConfiguration()
     }
 }
 
