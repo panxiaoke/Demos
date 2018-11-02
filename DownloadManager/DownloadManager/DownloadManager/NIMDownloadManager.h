@@ -1,6 +1,6 @@
 //
-//  DownloadManager.h
-//  DownloadManager
+//  NIMDownloadManager.h
+//  NIMDownloadManager
 //
 //  Created by BaiLun on 2018/11/2.
 //  Copyright © 2018 bailun. All rights reserved.
@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+typedef void(^NIMDownloadManagerCompletionHandler)(void);
 
 @interface NIMDownloadManager : NSObject
+
+@property (nonatomic, strong)NIMDownloadManagerCompletionHandler completionHandler;
 
 + (instancetype)shareManager;
 
@@ -19,10 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param remotePath 视频远程路径
  @param localPath 视频本地保存路径
- @return 下载器
  */
 - (void)downoadVideoFrom:(NSString *)remotePath to: (NSString *)localPath;
 
+
 @end
 
-NS_ASSUME_NONNULL_END

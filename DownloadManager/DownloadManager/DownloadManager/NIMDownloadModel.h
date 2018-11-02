@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface NIMDownloadModel : NSObject
 
+@property (nonatomic, copy) NSString *remotePath;
+
+@property (nonatomic, copy) NSString *name;
+
+@property (nonatomic, copy) NSString *directory;
+
 @end
 
-NS_ASSUME_NONNULL_END

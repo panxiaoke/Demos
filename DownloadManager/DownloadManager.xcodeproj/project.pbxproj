@@ -15,6 +15,8 @@
 		FF141514218BDDEB006CF3ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF141513218BDDEB006CF3ED /* main.m */; };
 		FF14151E218BDDEC006CF3ED /* DownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF14151D218BDDEC006CF3ED /* DownloadManagerTests.m */; };
 		FF141529218BDDEC006CF3ED /* DownloadManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF141528218BDDEC006CF3ED /* DownloadManagerUITests.m */; };
+		FF141539218BDE10006CF3ED /* NIMDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF141538218BDE10006CF3ED /* NIMDownloadManager.m */; };
+		FF14153C218BDF9C006CF3ED /* NIMDownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FF14153B218BDF9C006CF3ED /* NIMDownloadModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		FF141524218BDDEC006CF3ED /* DownloadManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF141528218BDDEC006CF3ED /* DownloadManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManagerUITests.m; sourceTree = "<group>"; };
 		FF14152A218BDDEC006CF3ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF141537218BDE10006CF3ED /* NIMDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMDownloadManager.h; sourceTree = "<group>"; };
+		FF141538218BDE10006CF3ED /* NIMDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMDownloadManager.m; sourceTree = "<group>"; };
+		FF14153A218BDF9C006CF3ED /* NIMDownloadModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMDownloadModel.h; sourceTree = "<group>"; };
+		FF14153B218BDF9C006CF3ED /* NIMDownloadModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMDownloadModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		FF141503218BDDEA006CF3ED /* DownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				FF141536218BDDF4006CF3ED /* DownloadManager */,
 				FF141504218BDDEA006CF3ED /* AppDelegate.h */,
 				FF141505218BDDEA006CF3ED /* AppDelegate.m */,
 				FF141507218BDDEA006CF3ED /* ViewController.h */,
@@ -130,6 +137,17 @@
 				FF14152A218BDDEC006CF3ED /* Info.plist */,
 			);
 			path = DownloadManagerUITests;
+			sourceTree = "<group>";
+		};
+		FF141536218BDDF4006CF3ED /* DownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				FF141537218BDE10006CF3ED /* NIMDownloadManager.h */,
+				FF141538218BDE10006CF3ED /* NIMDownloadManager.m */,
+				FF14153A218BDF9C006CF3ED /* NIMDownloadModel.h */,
+				FF14153B218BDF9C006CF3ED /* NIMDownloadModel.m */,
+			);
+			path = DownloadManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,8 +281,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF141509218BDDEA006CF3ED /* ViewController.m in Sources */,
+				FF14153C218BDF9C006CF3ED /* NIMDownloadModel.m in Sources */,
 				FF141514218BDDEB006CF3ED /* main.m in Sources */,
 				FF141506218BDDEA006CF3ED /* AppDelegate.m in Sources */,
+				FF141539218BDE10006CF3ED /* NIMDownloadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
