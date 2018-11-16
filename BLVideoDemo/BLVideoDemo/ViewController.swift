@@ -65,18 +65,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playVideo(_ sender: Any) {
-        
-        url = Bundle.main.url(forResource: "kongfu", withExtension: "mp4")
-        self.play()
-        
+        if  let urlStr = Bundle.main.path(forResource: "kongfu", ofType: "mp4") {
+            url = URL(fileURLWithPath: urlStr)
+            self.play()
+        }
     }
     
     func play() {
         if let videoURL  = self.url {
             let playerModel = PlayerModel()
             playerModel.videoURL = videoURL
-            let playerViewController = PlayerViewController(model: playerModel)
-            self.present(playerViewController, animated: true, completion: nil)
+            let player = KFCPlayer(model: playerModel)
+            player.show(from: self.view)
         }
     }
 }

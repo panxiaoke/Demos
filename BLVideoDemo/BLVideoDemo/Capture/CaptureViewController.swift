@@ -110,6 +110,20 @@ fileprivate enum OutputFileType: Int {
         return btn
     }()
     
+    lazy var operateHintLabel: UILabel = {
+        let hintLabel = UILabel()
+        hintLabel.text = "轻触拍照，长按摄像"
+        hintLabel.font = UIFont.systemFont(ofSize: 13)
+        hintLabel.textColor = .white
+        hintLabel.backgroundColor = UIColor(white: 0, alpha: 0.06)
+        hintLabel.layer.cornerRadius = 2
+        hintLabel.layer.masksToBounds = true
+        hintLabel.textAlignment = .center
+        hintLabel.alpha = 0
+        hintLabel.frame = CGRect(x: (self.view.frame.width - 130) * 0.5, y: self.toolBar.frame.minY - 24, width: 130, height: 24)
+        return hintLabel
+    }()
+    
     lazy var focusIndicator: CaptureFocusIndicator = {
         let indicator = CaptureFocusIndicator()
         indicator.frame = CGRect(x:0, y: 0, width: 100, height: 100)
@@ -174,14 +188,38 @@ extension CaptureViewController {
         self.view.insertSubview(self.photoImageView, belowSubview: self.toolBar)
         self.view.addSubview(self.changeCameraBtn)
         self.view.addSubview(self.focusIndicator)
+        self.view.addSubview(operateHintLabel)
     }
-    
+    // 设置按钮是否可以点击
     func operate(enable: Bool) {
         self.changeCameraBtn.isEnabled = enable
         self.toolBar.recordView.isUserInteractionEnabled = enable
         self.toolBar.giveUpBtn.isUserInteractionEnabled = enable
         self.toolBar.completeBtn.isUserInteractionEnabled = enable
     }
+    
+    /// 操作提示视图
+    func showOperationHint() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.operateHintLabel.alpha = 1
+            self.operateHintLabel.backgroundColor = UIColor(white: 0, alpha: 0.06)
+        }, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
+            UIView.animate(withDuration: 0.5, animations: {
+                self?.operateHintLabel.alpha = 0;
+            })
+        }
+    }
+    
+    /// 隐藏操作提示视图
+    func hideOperationHint() {
+        UIView.animate(withDuration: 0.15, animations: { [weak operateHintLabel] in
+            operateHintLabel?.alpha = 0;
+        })
+    }
+    
+    
     // MARK: - 权限
     func checkAuthorization() {
         let videoStatus = AVCaptureDevice.authorizationStatus(for: .video)
@@ -193,9 +231,7 @@ extension CaptureViewController {
             AVCaptureDevice.requestAccess(for: .video) { (authorized) in
                 DispatchQueue.main.async {
                     self.setupCaptureSetting()
-                    if !authorized {
-                        self.dismissCaptureViewController()
-                    }
+                    self.showAccessHintView()
                 }
             }
         }
@@ -205,9 +241,8 @@ extension CaptureViewController {
             AVAudioSession.sharedInstance().requestRecordPermission { (authorized) in
                 DispatchQueue.main.async {
                     self.setupCaptureSetting()
-                    if !authorized {
-                        self.dismissCaptureViewController()
-                    }
+                    self.showAccessHintView()
+                    
                 }
             }
         }
@@ -407,35 +442,6 @@ extension CaptureViewController {
         self.view.addGestureRecognizer(pinchGesture)
     }
     
-    
-    /// 操作提示视图
-    func showOperationHint() {
-        let hintLabel = UILabel()
-        hintLabel.text = "轻触拍照，长按摄像"
-        hintLabel.font = UIFont.systemFont(ofSize: 13)
-        hintLabel.textColor = .white
-        hintLabel.backgroundColor = UIColor(white: 0, alpha: 0.06)
-        hintLabel.layer.cornerRadius = 2
-        hintLabel.layer.masksToBounds = true
-        hintLabel.textAlignment = .center
-        hintLabel.alpha = 0
-        
-        hintLabel.frame = CGRect(x: (self.view.frame.width - 130) * 0.5, y: self.toolBar.frame.minY - 24, width: 130, height: 24)
-        self.view.addSubview(hintLabel)
-        UIView.animate(withDuration: 0.25, animations: {
-            hintLabel.alpha = 1
-            hintLabel.backgroundColor = UIColor(white: 0, alpha: 0.06)
-        }, completion: nil);
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            UIView.animate(withDuration: 0.5, animations: { [weak hintLabel] in
-                hintLabel?.alpha = 0;
-                }, completion: { [weak hintLabel] (finished) in
-                    hintLabel?.removeFromSuperview()
-            })
-        }
-    }
-    
 }
 
 // MARK: -  AVAVCaptureSession配置
@@ -585,6 +591,7 @@ extension CaptureViewController {
     
     /// 拍照
     func takePhoto() {
+        self.hideOperationHint()
         guard let connection = self.photoOutput.connection(with: .video) else {
             return
         }
@@ -628,6 +635,7 @@ extension CaptureViewController {
     
     /// 开始录制视频
     func startRecordVideo() {
+        self.hideOperationHint()
         if let captureConnection = self.movieOutput.connection(with: .video), captureConnection.isVideoOrientationSupported {
             captureConnection.videoOrientation = self.currentVideoCaptureOrientation()
             let videoName = self.createFileUUID()
@@ -649,6 +657,7 @@ extension CaptureViewController {
     
     /// 放弃捕获的视频或照片
     func giveUpCaptureResult() {
+        self.showOperationHint()
         self.removePlayer()
         self.photoImageView.isHidden = true
         self.photoImageView.image = nil

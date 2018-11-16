@@ -7,16 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		75891DDD218A14EB007F3806 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 75891DDB218A14EA007F3806 /* UIImage+Resize.m */; };
 		BBD480F161CE48C043F47F61 /* Pods_BLVideoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */; };
-		FF1153A3218C46DD008996B6 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A0218C46DD008996B6 /* PlayerViewController.swift */; };
-		FF1153A4218C46DD008996B6 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A1218C46DD008996B6 /* PlayerModel.swift */; };
-		FF1153A5218C46DD008996B6 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1153A2218C46DD008996B6 /* PlayerView.swift */; };
 		FF163A702175DEC50012AD15 /* SessionDrafPlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */; };
-		FF1694C921898EBC007AE613 /* CaptureProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C221898EBC007AE613 /* CaptureProgressView.swift */; };
-		FF1694CA21898EBC007AE613 /* CaptureToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C321898EBC007AE613 /* CaptureToolBar.swift */; };
-		FF1694CB21898EBC007AE613 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C421898EBC007AE613 /* CaptureViewController.swift */; };
-		FF1694CC21898EBC007AE613 /* CaptureFocusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694C521898EBC007AE613 /* CaptureFocusIndicator.swift */; };
 		FF1694CF218994BE007AE613 /* ZFLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1694CD218994BE007AE613 /* ZFLoadingView.m */; };
 		FF1694D1218994D2007AE613 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694D0218994D2007AE613 /* UIDevice.swift */; };
 		FF1694DD21899846007AE613 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694DC21899846007AE613 /* R.generated.swift */; };
@@ -29,6 +21,15 @@
 		FF17B56C2171BF0F00784A56 /* BLVideoDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17B56B2171BF0F00784A56 /* BLVideoDemoUITests.swift */; };
 		FF17E9F321782A3300BD831B /* kongfu.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FF17E9F221782A3300BD831B /* kongfu.mp4 */; };
 		FF17E9F62178A8E000BD831B /* you.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FF17E9F52178A8E000BD831B /* you.mp4 */; };
+		FF1B40AA219EA559000994C0 /* CaptureProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B409F219EA558000994C0 /* CaptureProgressView.swift */; };
+		FF1B40AB219EA559000994C0 /* CaptureToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A1219EA558000994C0 /* CaptureToolBar.swift */; };
+		FF1B40AC219EA559000994C0 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A2219EA558000994C0 /* CaptureViewController.swift */; };
+		FF1B40AD219EA559000994C0 /* CaptureFocusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A3219EA558000994C0 /* CaptureFocusIndicator.swift */; };
+		FF1B40AE219EA559000994C0 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A4219EA558000994C0 /* UIImage+Resize.m */; };
+		FF1B40AF219EA559000994C0 /* KFCPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A6219EA559000994C0 /* KFCPlayer.swift */; };
+		FF1B40B0219EA559000994C0 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A7219EA559000994C0 /* PlayerModel.swift */; };
+		FF1B40B1219EA559000994C0 /* UnSupportVideoHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A8219EA559000994C0 /* UnSupportVideoHintView.swift */; };
+		FF1B40B2219EA559000994C0 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B40A9219EA559000994C0 /* PlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,19 +51,10 @@
 
 /* Begin PBXFileReference section */
 		5BE34097F9583BC043C15DEE /* Pods-BLVideoDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLVideoDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-BLVideoDemo/Pods-BLVideoDemo.release.xcconfig"; sourceTree = "<group>"; };
-		75891DDB218A14EA007F3806 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		75891DDC218A14EB007F3806 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		B1AF6D837EF9A446D09F4DAB /* Pods-BLVideoDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLVideoDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BLVideoDemo/Pods-BLVideoDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLVideoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF1153A0218C46DD008996B6 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
-		FF1153A1218C46DD008996B6 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
-		FF1153A2218C46DD008996B6 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDrafPlistManager.swift; sourceTree = "<group>"; };
 		FF1648032179870800EEBDD8 /* BLVideoDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLVideoDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		FF1694C221898EBC007AE613 /* CaptureProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureProgressView.swift; sourceTree = "<group>"; };
-		FF1694C321898EBC007AE613 /* CaptureToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureToolBar.swift; sourceTree = "<group>"; };
-		FF1694C421898EBC007AE613 /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
-		FF1694C521898EBC007AE613 /* CaptureFocusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureFocusIndicator.swift; sourceTree = "<group>"; };
 		FF1694CD218994BE007AE613 /* ZFLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFLoadingView.m; sourceTree = "<group>"; };
 		FF1694CE218994BE007AE613 /* ZFLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFLoadingView.h; sourceTree = "<group>"; };
 		FF1694D0218994D2007AE613 /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -82,6 +74,16 @@
 		FF17B56D2171BF0F00784A56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF17E9F221782A3300BD831B /* kongfu.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = kongfu.mp4; sourceTree = "<group>"; };
 		FF17E9F52178A8E000BD831B /* you.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = you.mp4; sourceTree = "<group>"; };
+		FF1B409F219EA558000994C0 /* CaptureProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureProgressView.swift; sourceTree = "<group>"; };
+		FF1B40A0219EA558000994C0 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		FF1B40A1219EA558000994C0 /* CaptureToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureToolBar.swift; sourceTree = "<group>"; };
+		FF1B40A2219EA558000994C0 /* CaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
+		FF1B40A3219EA558000994C0 /* CaptureFocusIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureFocusIndicator.swift; sourceTree = "<group>"; };
+		FF1B40A4219EA558000994C0 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		FF1B40A6219EA559000994C0 /* KFCPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KFCPlayer.swift; sourceTree = "<group>"; };
+		FF1B40A7219EA559000994C0 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		FF1B40A8219EA559000994C0 /* UnSupportVideoHintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnSupportVideoHintView.swift; sourceTree = "<group>"; };
+		FF1B40A9219EA559000994C0 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,29 +129,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FF11539F218C46DD008996B6 /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				FF1153A0218C46DD008996B6 /* PlayerViewController.swift */,
-				FF1153A1218C46DD008996B6 /* PlayerModel.swift */,
-				FF1153A2218C46DD008996B6 /* PlayerView.swift */,
-			);
-			path = Player;
-			sourceTree = "<group>";
-		};
-		FF1694C121898EBC007AE613 /* Capture */ = {
-			isa = PBXGroup;
-			children = (
-				75891DDC218A14EB007F3806 /* UIImage+Resize.h */,
-				75891DDB218A14EA007F3806 /* UIImage+Resize.m */,
-				FF1694C221898EBC007AE613 /* CaptureProgressView.swift */,
-				FF1694C321898EBC007AE613 /* CaptureToolBar.swift */,
-				FF1694C421898EBC007AE613 /* CaptureViewController.swift */,
-				FF1694C521898EBC007AE613 /* CaptureFocusIndicator.swift */,
-			);
-			path = Capture;
-			sourceTree = "<group>";
-		};
 		FF17B53F2171BF0D00784A56 = {
 			isa = PBXGroup;
 			children = (
@@ -176,12 +155,12 @@
 		FF17B54A2171BF0D00784A56 /* BLVideoDemo */ = {
 			isa = PBXGroup;
 			children = (
+				FF1B409E219EA558000994C0 /* Capture */,
+				FF1B40A5219EA559000994C0 /* Player */,
 				FF1694DC21899846007AE613 /* R.generated.swift */,
 				FF1694D0218994D2007AE613 /* UIDevice.swift */,
 				FF1694CE218994BE007AE613 /* ZFLoadingView.h */,
 				FF1694CD218994BE007AE613 /* ZFLoadingView.m */,
-				FF1694C121898EBC007AE613 /* Capture */,
-				FF11539F218C46DD008996B6 /* Player */,
 				FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */,
 				FF17B54B2171BF0D00784A56 /* AppDelegate.swift */,
 				FF17B54D2171BF0D00784A56 /* ViewController.swift */,
@@ -211,6 +190,30 @@
 				FF17B56D2171BF0F00784A56 /* Info.plist */,
 			);
 			path = BLVideoDemoUITests;
+			sourceTree = "<group>";
+		};
+		FF1B409E219EA558000994C0 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				FF1B409F219EA558000994C0 /* CaptureProgressView.swift */,
+				FF1B40A0219EA558000994C0 /* UIImage+Resize.h */,
+				FF1B40A1219EA558000994C0 /* CaptureToolBar.swift */,
+				FF1B40A2219EA558000994C0 /* CaptureViewController.swift */,
+				FF1B40A3219EA558000994C0 /* CaptureFocusIndicator.swift */,
+				FF1B40A4219EA558000994C0 /* UIImage+Resize.m */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		FF1B40A5219EA559000994C0 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				FF1B40A6219EA559000994C0 /* KFCPlayer.swift */,
+				FF1B40A7219EA559000994C0 /* PlayerModel.swift */,
+				FF1B40A8219EA559000994C0 /* UnSupportVideoHintView.swift */,
+				FF1B40A9219EA559000994C0 /* PlayerView.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,19 +416,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF163A702175DEC50012AD15 /* SessionDrafPlistManager.swift in Sources */,
-				FF1694C921898EBC007AE613 /* CaptureProgressView.swift in Sources */,
-				FF1694CB21898EBC007AE613 /* CaptureViewController.swift in Sources */,
-				FF1153A4218C46DD008996B6 /* PlayerModel.swift in Sources */,
 				FF1694DD21899846007AE613 /* R.generated.swift in Sources */,
+				FF1B40B1219EA559000994C0 /* UnSupportVideoHintView.swift in Sources */,
+				FF1B40B2219EA559000994C0 /* PlayerView.swift in Sources */,
 				FF1694CF218994BE007AE613 /* ZFLoadingView.m in Sources */,
-				FF1153A3218C46DD008996B6 /* PlayerViewController.swift in Sources */,
+				FF1B40B0219EA559000994C0 /* PlayerModel.swift in Sources */,
+				FF1B40AA219EA559000994C0 /* CaptureProgressView.swift in Sources */,
+				FF1B40AC219EA559000994C0 /* CaptureViewController.swift in Sources */,
+				FF1B40AF219EA559000994C0 /* KFCPlayer.swift in Sources */,
 				FF1694D1218994D2007AE613 /* UIDevice.swift in Sources */,
 				FF17B54E2171BF0D00784A56 /* ViewController.swift in Sources */,
-				FF1153A5218C46DD008996B6 /* PlayerView.swift in Sources */,
-				FF1694CC21898EBC007AE613 /* CaptureFocusIndicator.swift in Sources */,
-				FF1694CA21898EBC007AE613 /* CaptureToolBar.swift in Sources */,
+				FF1B40AD219EA559000994C0 /* CaptureFocusIndicator.swift in Sources */,
+				FF1B40AE219EA559000994C0 /* UIImage+Resize.m in Sources */,
+				FF1B40AB219EA559000994C0 /* CaptureToolBar.swift in Sources */,
 				FF17B54C2171BF0D00784A56 /* AppDelegate.swift in Sources */,
-				75891DDD218A14EB007F3806 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

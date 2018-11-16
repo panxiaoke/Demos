@@ -38,7 +38,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 10 images.
+  /// This `R.image` struct is generated, and contains static references to 11 images.
   struct image {
     /// Image `camera_change_lighted`.
     static let camera_change_lighted = Rswift.ImageResource(bundle: R.hostingBundle, name: "camera_change_lighted")
@@ -60,6 +60,8 @@ struct R: Rswift.Validatable {
     static let chat_player_pause = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat_player_pause")
     /// Image `chat_player_play`.
     static let chat_player_play = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat_player_play")
+    /// Image `chat_player_unsupport`.
+    static let chat_player_unsupport = Rswift.ImageResource(bundle: R.hostingBundle, name: "chat_player_unsupport")
     
     /// `UIImage(named: "camera_change_lighted", bundle: ..., traitCollection: ...)`
     static func camera_change_lighted(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -109,6 +111,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "chat_player_play", bundle: ..., traitCollection: ...)`
     static func chat_player_play(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.chat_player_play, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "chat_player_unsupport", bundle: ..., traitCollection: ...)`
+    static func chat_player_unsupport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.chat_player_unsupport, compatibleWith: traitCollection)
     }
     
     fileprivate init() {}
