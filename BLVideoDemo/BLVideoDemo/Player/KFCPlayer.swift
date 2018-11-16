@@ -34,6 +34,22 @@ fileprivate extension Selector {
     // 播放器模型，包含了视屏的相关信息
     var playerModel: PlayerModel = PlayerModel()
     
+    /// 顶部的安全距离
+    fileprivate var topSafeDistance: CGFloat {
+        if #available(iOS 11, *) {
+            return 20
+        }
+        return 0
+    }
+    
+    /// 底部的安全距离
+    fileprivate var bottomSafeDistance: CGFloat {
+        if #available(iOS 11, *) {
+            return 34
+        }
+        return 0
+    }
+    
     // 视频播放状态
     fileprivate var playState: VideoPlayState = .unknown {
         didSet {
@@ -81,8 +97,6 @@ fileprivate extension Selector {
     lazy var closeBtn: UIButton = {
         let btn = UIButton(type: .custom)
         btn.addTarget(self, action: Selector.handleCloseSEL, for: .touchUpInside)
-        let y = UIDevice.iPhoneX() ? 20 : 0
-        btn.frame = CGRect(x: 0, y: y, width: 64, height: 64)
         btn.setImage(UIImage(named: "chat_player_close"), for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn.isHidden = isHiddenSomeViews
@@ -191,33 +205,7 @@ fileprivate extension Selector {
     deinit {
         self.removeListeners()
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let bottomSafeDistance: CGFloat = UIDevice.iPhoneX() ? 34 : 0
-        let controlBtnCenterY = self.controlBtn.frame.minY + self.controlBtn.frame.height * 0.5 - bottomSafeDistance
-        let margin: CGFloat = 5
-        let labelWidth: CGFloat = 35
-        let height: CGFloat = 44
-        
-        self.controlBtn.center = CGPoint(x: self.controlBtn.center.x, y: controlBtnCenterY)
-        
-        let palyedDruationLabelX = self.controlBtn.frame.maxX + margin
-        self.playedDurationLabel.frame = CGRect(x: palyedDruationLabelX, y: controlBtnCenterY, width: labelWidth, height: height)
-        self.playedDurationLabel.center = CGPoint(x: self.playedDurationLabel.center.x, y: controlBtnCenterY)
-        
-        let progressSliderX = self.playedDurationLabel.frame.maxX + margin
-        var progressSliderWidth: CGFloat = self.frame.width - self.controlBtn.frame.maxX - labelWidth * 2 - margin * 2
-        progressSliderWidth -= 20
-        self.progressSlider.frame = CGRect(x: progressSliderX, y: controlBtnCenterY, width: progressSliderWidth, height: height)
-        self.progressSlider.center = CGPoint(x: self.progressSlider.center.x, y: controlBtnCenterY)
-        
-        let videoDurationLabelX = self.progressSlider.frame.maxX + margin
-        self.videoDurationLabel.frame = CGRect(x: videoDurationLabelX, y: controlBtnCenterY, width: labelWidth, height: height)
-        self.videoDurationLabel.center = CGPoint(x: self.videoDurationLabel.center.x, y: controlBtnCenterY)
-    }
-    
+
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
 //        UIApplication.shared.setStatusBarHidden(true, with: .fade)
@@ -293,14 +281,52 @@ fileprivate extension KFCPlayer {
         
         
         self.addSubview(self.closeBtn)
-        self.addSubview(self.centerPlayBtn)
-        self.addSubview(self.controlBtn)
-        self.addSubview(self.progressSlider)
-        self.addSubview(self.playedDurationLabel)
-        self.addSubview(self.videoDurationLabel)
-        self.addSubview(self.loadingActivity)
-        self.addSubview(self.unSupportHintView)
+        closeBtn.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview().offset(topSafeDistance)
+            make.size.equalTo(CGSize(width: 44, height: 44))
+        }
         
+        self.addSubview(self.centerPlayBtn)
+        centerPlayBtn.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        
+        self.addSubview(self.controlBtn)
+        controlBtn.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(0)
+            make.bottom.equalToSuperview().offset(-bottomSafeDistance)
+            make.size.equalTo(CGSize(width: 44, height: 44))
+        }
+       
+        self.addSubview(self.playedDurationLabel)
+        self.playedDurationLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(controlBtn.snp.right).offset(10)
+            make.centerY.equalTo(controlBtn)
+            make.width.equalTo(30)
+        }
+        
+        self.addSubview(self.videoDurationLabel)
+        self.videoDurationLabel.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-28)
+            make.centerY.equalTo(controlBtn)
+            make.width.equalTo(30)
+        }
+        
+        self.addSubview(self.progressSlider)
+        self.progressSlider.snp.makeConstraints { (make) in
+            make.left.equalTo(playedDurationLabel.snp.right).offset(8)
+            make.centerY.equalTo(playedDurationLabel)
+            make.right.equalTo(videoDurationLabel.snp.left).offset(-8)
+        }
+        
+       
+        self.addSubview(self.loadingActivity)
+        self.loadingActivity.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+        }
+        
+        self.addSubview(self.unSupportHintView)
         self.unSupportHintView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -358,6 +384,9 @@ fileprivate extension KFCPlayer {
         playerView.player = player
         
         self.addSubview(playerView)
+        playerView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
        
     }
     
