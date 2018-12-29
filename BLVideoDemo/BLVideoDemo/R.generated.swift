@@ -16,16 +16,24 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 2 files.
+  /// This `R.file` struct is generated, and contains static references to 3 files.
   struct file {
     /// Resource file `kongfu.mp4`.
     static let kongfuMp4 = Rswift.FileResource(bundle: R.hostingBundle, name: "kongfu", pathExtension: "mp4")
+    /// Resource file `ring.mp3`.
+    static let ringMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "ring", pathExtension: "mp3")
     /// Resource file `you.mp4`.
     static let youMp4 = Rswift.FileResource(bundle: R.hostingBundle, name: "you", pathExtension: "mp4")
     
     /// `bundle.url(forResource: "kongfu", withExtension: "mp4")`
     static func kongfuMp4(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.kongfuMp4
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "ring", withExtension: "mp3")`
+    static func ringMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ringMp3
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -161,8 +169,8 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
-      try launchScreen.validate()
       try main.validate()
+      try launchScreen.validate()
     }
     
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

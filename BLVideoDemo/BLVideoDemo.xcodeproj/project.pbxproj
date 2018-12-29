@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BBD480F161CE48C043F47F61 /* Pods_BLVideoDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */; };
 		FF163A702175DEC50012AD15 /* SessionDrafPlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */; };
+		FF16557921D75735009627B7 /* ring.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF16557821D75735009627B7 /* ring.mp3 */; };
 		FF1694CF218994BE007AE613 /* ZFLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1694CD218994BE007AE613 /* ZFLoadingView.m */; };
 		FF1694D1218994D2007AE613 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694D0218994D2007AE613 /* UIDevice.swift */; };
 		FF1694DD21899846007AE613 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1694DC21899846007AE613 /* R.generated.swift */; };
@@ -55,6 +56,7 @@
 		D039C2F24E95134833D5CBD5 /* Pods_BLVideoDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLVideoDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF163A6F2175DEC40012AD15 /* SessionDrafPlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDrafPlistManager.swift; sourceTree = "<group>"; };
 		FF1648032179870800EEBDD8 /* BLVideoDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLVideoDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		FF16557821D75735009627B7 /* ring.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ring.mp3; sourceTree = "<group>"; };
 		FF1694CD218994BE007AE613 /* ZFLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFLoadingView.m; sourceTree = "<group>"; };
 		FF1694CE218994BE007AE613 /* ZFLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFLoadingView.h; sourceTree = "<group>"; };
 		FF1694D0218994D2007AE613 /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				FF17B5542171BF0E00784A56 /* LaunchScreen.storyboard */,
 				FF17B5572171BF0E00784A56 /* Info.plist */,
 				FF17E9F221782A3300BD831B /* kongfu.mp4 */,
+				FF16557821D75735009627B7 /* ring.mp3 */,
 				FF17E9F52178A8E000BD831B /* you.mp4 */,
 			);
 			path = BLVideoDemo;
@@ -326,6 +329,7 @@
 			files = (
 				FF17B5562171BF0E00784A56 /* LaunchScreen.storyboard in Resources */,
 				FF17E9F321782A3300BD831B /* kongfu.mp4 in Resources */,
+				FF16557921D75735009627B7 /* ring.mp3 in Resources */,
 				FF17E9F62178A8E000BD831B /* you.mp4 in Resources */,
 				FF17B5532171BF0E00784A56 /* Assets.xcassets in Resources */,
 				FF17B5512171BF0D00784A56 /* Main.storyboard in Resources */,

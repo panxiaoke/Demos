@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 @objcMembers class PlayerModel: NSObject {
     var videoURL: URL!      // 视频地址
     var duration: Int = 0   // 视频时长，单位：秒

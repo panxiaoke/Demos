@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import AVFoundation
+import CoreLocation
+
 
 class ViewController: UIViewController {
-    
+   
     var url: URL?
-
+    var player: AVPlayer?
     @IBOutlet weak var sliderBar: UISlider!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +30,13 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.play()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.url = nil
+    
     }
 
     @IBAction func slider(_ sender: UISlider) {
@@ -65,7 +70,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playVideo(_ sender: Any) {
-        if  let urlStr = Bundle.main.path(forResource: "kongfu", ofType: "mp4") {
+        if  let urlStr = Bundle.main.path(forResource: "ring", ofType: "mp3") {
             url = URL(fileURLWithPath: urlStr)
             self.play()
         }
